@@ -44,7 +44,7 @@ export default function Questionform({ initialData, onSubmit }) {
     setError("");
 
     if (!form.question_text.trim()) return setError("Question text is required");
-    if (form.section_type !== "AWA" && !form.correct_option) 
+    if (form.section_type !== "AWA" && !form.correct_option)
       return setError("Correct option is required");
 
     const payload = {
@@ -59,10 +59,13 @@ export default function Questionform({ initialData, onSubmit }) {
 
     setLoading(true);
     try {
-      await onSubmit(payload); // call server API via parent
+      // ✅ Call the server action via parent prop
+      await onSubmit(payload);
+
+      // Reset form after success
       setForm(EMPTY_FORM);
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "Failed to save question");
     } finally {
       setLoading(false);
     }
@@ -114,10 +117,14 @@ export default function Questionform({ initialData, onSubmit }) {
             <select
               className="input"
               value={form.correct_option}
-              onChange={(e) => setForm({ ...form, correct_option: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, correct_option: e.target.value })
+              }
             >
               <option value="">Select correct option</option>
-              {form.options.map((opt, i) => opt && <option key={i} value={opt}>{opt}</option>)}
+              {form.options.map(
+                (opt, i) => opt && <option key={i} value={opt}>{opt}</option>
+              )}
             </select>
           </div>
         </>
@@ -131,3 +138,4 @@ export default function Questionform({ initialData, onSubmit }) {
     </form>
   );
 }
+  

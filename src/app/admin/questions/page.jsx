@@ -1,31 +1,27 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Pencil, Trash2, Plus } from "lucide-react";
 import { useQuestionsStore } from "@/store/questionsStore";
-// import  Sidebar from "@/components/admin/Sidebar";
 import QuestionBulkUpload from "@/components/admin/QuestionBulkUpload";
+import { getQuestions } from "@/actions/admin_B/questions"; // ✅ server action
 
 export default function QuestionsPage() {
   const router = useRouter();
   const { questions, setQuestions, deleteQuestion } = useQuestionsStore();
+  const [isPending, startTransition] = useTransition();
 
-  // Fetch questions on mount
+  // Fetch questions on mount using server action
   useEffect(() => {
-    const fetchQuestions = async () => {
+    startTransition(async () => {
       try {
-        const res = await fetch("/api/questions");
-        if (!res.ok) throw new Error("Failed to fetch questions");
-
-        const data = await res.json();
-        setQuestions(data); // update store
+        const data = await getQuestions(); // ✅ server action
+        setQuestions(data);
       } catch (err) {
         console.error("Error fetching questions:", err);
       }
-    };
-
-    fetchQuestions();
+    });
   }, [setQuestions]);
 
   return (
@@ -47,7 +43,14 @@ export default function QuestionsPage() {
       </div>
 
       {/* Bulk Upload */}
-      <QuestionBulkUpload onSuccess={() => router.refresh()} />
+      <QuestionBulkUpload
+        onSuccess={() =>
+          startTransition(async () => {
+            const refreshed = await getQuestions();
+            setQuestions(refreshed);
+          })
+        }
+      />
 
       {/* Questions Table */}
       <div className="bg-white rounded-xl border shadow-sm overflow-hidden mt-6">
@@ -64,30 +67,23 @@ export default function QuestionsPage() {
           <tbody>
             {questions.map((q) => (
               <tr key={q.id} className="border-b last:border-0 hover:bg-gray-50">
-                {/* Show shortened ID, but full ID is used in routing */}
                 <td className="px-6 py-4 text-sm text-gray-500 font-mono">
                   {q.id.slice(0, 8)}
                 </td>
-
                 <td className="px-6 py-4 font-medium">{q.question_text}</td>
-
                 <td className="px-6 py-4">
                   <span className="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">
                     {q.section_type}
                   </span>
                 </td>
-
                 <td className="px-6 py-4">
                   <div className="flex justify-end gap-2">
-                    {/* Edit button uses full UUID */}
                     <button
                       onClick={() => router.push(`/admin/questions/edit/${q.id}`)}
                       className="icon-btn text-blue-600"
                     >
                       <Pencil size={16} />
                     </button>
-
-                    {/* Delete question */}
                     <button
                       onClick={() => deleteQuestion(q.id)}
                       className="icon-btn text-red-600"
