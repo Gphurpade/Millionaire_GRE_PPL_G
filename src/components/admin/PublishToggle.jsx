@@ -35,9 +35,8 @@ export default function PublishToggle({ testId, published, setPublished }) {
           }`}
         >
           {published ? "Published" : "Unpublished"}
+          <Switch checked={published} onCheckedChange={setPublished} />
         </span>
-
-        <Switch checked={published} onCheckedChange={setPublished} />
       </div>
     </div>
   );

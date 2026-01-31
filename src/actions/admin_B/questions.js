@@ -1,5 +1,5 @@
 "use server"; // makes this a server action
-import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { supabaseAdmin } from "@/lib/supabase/server";
 import { v4 as uuid } from "uuid";
 
 // Fetch all questions

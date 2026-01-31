@@ -71,7 +71,8 @@ export default function TestResultPage() {
               variant="outline"
               onClick={() => {
                 resetTest();
-                router.push(`/tests/${testId}/start`);
+                // router.push(`/tests/${testId}/start`);
+                  router.push('/');
               }}
             >
               Retake Test

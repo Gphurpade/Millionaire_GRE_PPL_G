@@ -25,7 +25,7 @@ export default function Footer() {
         <div>
           <h4 className="text-white font-semibold mb-3">Resources</h4>
           <ul className="space-y-2 text-sm">
-            <li><Link href="/tests">Free Practice</Link></li>
+            <li><Link href="/#free-tests">Free Practice</Link></li>
             <li><Link href="/guide">GRE Guide</Link></li>
             <li><Link href="/support">Support</Link></li>
           </ul>

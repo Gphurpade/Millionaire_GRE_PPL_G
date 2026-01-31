@@ -11,11 +11,14 @@ export default function Navbar() {
         </Link>
 
         {/* Links */}
-        <div className="hidden md:flex gap-6 text-2xl mx-auto">
-          <Link href="/">Home</Link>
-          <Link href="/about">About</Link>
-          <Link href="/tests">Tests</Link>
-          <Link href="/contact">Contact</Link>
+        <div className="hidden md:flex gap-6 text-xl mx-auto">
+          <Link onClick={() => {
+            const section = document.getElementById("free-tests");
+            section?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }}
+            href="/#free-tests">Tests</Link>
+          <Link className="" href="/about">About</Link>
+          <Link className="" href="/contact">Contact</Link>
         </div>
 
         {/* Login Button */}
