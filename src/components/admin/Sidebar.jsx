@@ -52,12 +52,7 @@ export default function Sidebar() {
       href: "/admin/students",
       match: "/admin/students",
     },
-    {
-      name: "Categories",
-      icon: FolderOpen,
-      href: "/admin/categories",
-      match: "/admin/categories",
-    },
+
     {
       name: "Test Attempts",
       icon: ListChecks,

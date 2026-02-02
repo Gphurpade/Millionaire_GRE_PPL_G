@@ -27,7 +27,7 @@ export default function Footer() {
           <ul className="space-y-2 text-sm text-blue-200">
             <li><Link href="/#free-tests" className="hover:text-white transition-colors">Free Practice</Link></li>
             <li><Link href="/guide" className="hover:text-white transition-colors">GRE Guide</Link></li>
-            <li><Link href="/support" className="hover:text-white transition-colors">Support</Link></li>
+            <li><Link href="/#contact" className="hover:text-white transition-colors">Support</Link></li>
           </ul>
         </div>
 

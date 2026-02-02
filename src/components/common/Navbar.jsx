@@ -6,7 +6,10 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
         {/* Logo */}
-        <Link href="/" className="text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
+        <Link href="/"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2"
+        >
           <span className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-serif transform -rotate-6">M</span>
           MillionaireGRE
         </Link>
@@ -29,6 +32,9 @@ export default function Navbar() {
             href="/#about"
             className="hover:text-blue-600 transition-colors">
             About
+          </Link>
+          <Link href="/guide" className="hover:text-blue-600 transition-colors">
+            Guide
           </Link>
 
           <Link onClick={() => {
